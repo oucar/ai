@@ -1,18 +1,17 @@
 # Cleaning, manipulating the data 
 
 # Find and deal with missing data
-# Find and deal with duplicates
 # Recording values, dealign with the variable types you need etc
-library(tidyverse)
+library(tidyverse) 
 view(starwars)
 
 
-# Variable Types
+## Variable Types
 glimpse(starwars)
 class(starwars$gender)
 unique(starwars$gender)
 
-# Factor -> categorical variable (order matters)
+## Factor -> categorical variable (order matters)
 starwars$gender <- as.factor(starwars$gender)
 class(starwars$gender)
 glimpse(starwars)
@@ -22,12 +21,12 @@ levels(starwars$gender)
 starwars$gender <- factor((starwars$gender),
                           levels = c("masculine", "feminine"))
 
-# Shift + CTRL + M to %>% 
+## Shift + CTRL + M to %>% 
 starwars %>% 
   select(name, height, ends_with("color")) %>% 
   filter(hair_color %in% c("blond", "brown") & (height < 180)) 
 
-# Dealing with the missing data
+## Dealing with the missing data
 # R programming language doesn't know what to do with the missing data
 mean(starwars$height, na.rm = T)
 
@@ -37,5 +36,5 @@ mean(starwars$height, na.rm = T)
 starwars %>% 
   select(name, gender, hair_color, height) %>% 
   filter(!complete.cases(.)) %>% 
-  drop_na(height)
-
+  drop_na(height) %>% 
+  mutate(hair_color = replace_na(hair_color, "none"))
