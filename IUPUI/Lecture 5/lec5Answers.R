@@ -37,6 +37,9 @@ lp_copy=lp[sample(Nr,Nr,T),]
 lr_bootstrap[i]=sum(lp_copy$loss)/sum(lp_copy$premium)
 }
 
+View(lp_copy)
+View(lp)
+
 quantile(lr_bootstrap,.025)
 quantile(lr_bootstrap,.975)
 
