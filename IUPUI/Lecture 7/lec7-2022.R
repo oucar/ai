@@ -1,5 +1,6 @@
-house=read_csv("house_price.csv")
-titanic=read_csv("titanic_survival.csv")
+install.packages("readr")
+house=read_csv("trainHouse.csv")
+titanic=read_csv("trainTitanic.csv")
 
 
 library(randomForest)
