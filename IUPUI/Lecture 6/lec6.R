@@ -1,3 +1,4 @@
+library(dplyr)
 house = read.csv("trainHouse.csv")
 titanic = read.csv("trainTitanic.csv")
 
@@ -6,16 +7,20 @@ titanic = read.csv("trainTitanic.csv")
 house_model = glm(SalePrice ~ GrLivArea + PoolArea + BedroomAbvGr,
                   data = house, family = "gaussian")
 
+# I am not sure what's happening here
 # GrLivArea -> increases the price by 129.845 ...
 # Poolarea -> decreases the price by 67.607 ...
 # Pr ( >|t|) -> t value, probability
-# You can remove PoolArea from the model because it's probability is higher?
+# You can remove PoolArea from the model because its probability is higher?
 summary(house_model)
 
 prediction = predict(house_model, data.frame(GrLivArea=1500, PoolArea=0,
                                 FullBath=3, BedroomAbvGr=3))
-# predicted price of the given house
+
+
+# predicted the price of the given house
 prediction
+
 
 house$predictions = predict(house_model, house)
 # correleation
@@ -98,6 +103,7 @@ house_test$predictions=predict(glmmodel,house_test)
 #compare accuracy on held out data
 mean(abs(house_test$rfpredictions-house_test$SalePrice))
 mean(abs(house_test$predictions-house_test$SalePrice))
+
 
 
 
