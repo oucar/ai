@@ -70,15 +70,35 @@ acc5 = -6.19
 displacement5 = -1.51
 
 ## graphing Velocity - time
-actVar <- ggplot(data=data.frame( x=c(0, 2),y=c(0,-10) ), aes(x=x, y=y)) + 
-  geom_point(aes(x=1, y=-3.06), shape = 1) +
-  geom_abline(slope = -5.5715, col="red") +
-  geom_hline(yintercept = 0) +
-  geom_vline(xintercept = 0) +
-  geom_vline(xintercept = 0.8, linetype="dashed", color="blue") +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-actVar + xlab("time (seconds)") + ylab("velocity (m/s)")
+
+velocityData <- read.csv(
+  file = "velocity.csv",
+  dec = ".",
+  colClasses = 
+)
+
+avgAcc = velocityData$avgAcc
+instantVelocity = velocityData$velocity
+time = velocityData$time
+
+
+act1_g1 <- data %>% ggplot(aes(x = time, y = acc_z)) + geom_line() + coord_cartesian(xlim=c(0, 18)) + scale_x_continuous(expand = c(0, 0), limits = c(0, NA))
+act1_g1 + xlab("time (seconds)") + ylab(subscript) + scale_y_continuous(breaks=-20:10)
+
+subscript = expression(paste("Velocity (",m/s,")"))
+vel_graph <- velocityData %>% ggplot(aes(x = time, y = instantVelocity)) + geom_line(col="red")
+vel_graph + xlab("Time (seconds)") + ylab(subscript) + scale_y_continuous(breaks=-0:-5) + scale_x_continuous(breaks=0:6/10)
+
+############# LEGACY CODE ##########
+## actVar <- ggplot(data=data.frame( x=c(0, 2),y=c(0,-10) ), aes(x=x, y=y)) + 
+##  geom_point(aes(x=1, y=-3.06), shape = 1) +
+##  geom_abline(slope = -5.5715, col="red") +
+##  geom_hline(yintercept = 0) +
+##  geom_vline(xintercept = 0) +
+##  geom_vline(xintercept = 0.8, linetype="dashed", color="blue") +
+##  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+##  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
+## actVar + xlab("time (seconds)") + ylab("velocity (m/s)")
 
 ## Graphing the error analysis
 accData <- read.csv("acc_data.csv")
