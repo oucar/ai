@@ -1,7 +1,9 @@
 library(tidyverse)
-test=read_csv("~/Downloads/titanic/test.csv")
-train=read_csv("~/Downloads/titanic/train.csv")
-ex_sub=read_csv("~/Downloads/titanic/gender_submission.csv")
+test=read_csv("test.csv")
+train=read_csv("train.csv")
+ex_sub=read_csv("gender_submission.csv")
+
+# Test data doesn't have the survived column. Goal is the filling that column out.
 
 # fill in na
 
@@ -22,8 +24,14 @@ test=test %>% left_join(cat2num,by="Embarked")
 
 lin_model=glm(Survived~Sex+Parch+Age+numEmb,data=train,family="binomial")
 
-test$Survived=round(predict(lin_model,test,type="response"))
+# if you increase the age prob. of survival decreases
+# if you increase the fare prob. of survival increases
+summary(lin_model)
 
+test$Survived=round(predict(lin_model,test,type="response"))
+table(test$Survived)
+
+# creating a csv out of R
 write.csv(test[,c("PassengerId","Survived")],
-          "~/Downloads/titanic/glm_submission.csv",
+          "glm_submission.csv",
           row.names=F)

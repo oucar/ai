@@ -6,7 +6,8 @@ nij_train = read_rds("nij_training.rds")
 
 # Linear regression: easier but often data is not linear.
 # Random forest: based on decision trees that divide feature space into various rectangles (like decision splits)
-# 
+# Gradient boosting: Uses decision trees, but it's a nonlinear model, optimizes a particular loss function - you need to choose the parameters correctrly
+
 
 xgb2int=function(data){
   data$Gang_Affiliated=as.integer(data$Gang_Affiliated)
