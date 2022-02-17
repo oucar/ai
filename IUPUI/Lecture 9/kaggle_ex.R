@@ -22,10 +22,14 @@ cat2num=train %>% group_by(Embarked) %>% summarise(numEmb=mean(Survived,na.rm=T)
 train=train %>% left_join(cat2num,by="Embarked")
 test=test %>% left_join(cat2num,by="Embarked")
 
-lin_model=glm(Survived~Sex+Parch+Age+numEmb,data=train,family="binomial")
 
-# if you increase the age prob. of survival decreases
+lin_model=glm(Survived~Age+Fare,data=train,family="binomial")
+# if you increase the age prob. of survival decreases (check estimate)
 # if you increase the fare prob. of survival increases
+summary(lin_model)
+
+# handling NA's
+lin_model=glm(Survived~Sex+Parch+Age+numEmb,data=train,family="binomial")
 summary(lin_model)
 
 test$Survived=round(predict(lin_model,test,type="response"))
