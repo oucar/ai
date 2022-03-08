@@ -1,5 +1,5 @@
 library(keras)
-
+### Convolution neural network
 # Parameters --------------------------------------------------------------
 
 batch_size <- 32
