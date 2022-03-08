@@ -1,7 +1,10 @@
 library(keras)
 library(graphics)
+library(tensorflow)
+library(keras)
+library(tensorflow)
 
-
+install_keras() # or install_tensorflow() depending on what you want
 
 # import mnist and written digit data
 mnist <- dataset_mnist()
@@ -30,9 +33,11 @@ y_test <- to_categorical(y_test, 10)
 model <- keras_model_sequential() 
 model %>% 
   layer_dense(units = 256, activation = 'relu', input_shape = c(784)) %>% 
+  # prevent overfitting
   layer_dropout(rate = 0.4) %>% 
   layer_dense(units = 128, activation = 'relu') %>%
   layer_dropout(rate = 0.3) %>%
+  # softmax -> probabilities
   layer_dense(units = 10, activation = 'softmax')
 
 # inspect the model
