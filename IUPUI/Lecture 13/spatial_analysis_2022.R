@@ -1,7 +1,6 @@
 library(tidyverse)
 crime=read_csv("mvt.csv")
 
-
 # scatter plot over google map
 library(ggmap)
 
@@ -40,17 +39,18 @@ ggsave("heatmap_sample.pdf",p,width=6,height=6)
 
 
 # K function 
+# decides if the data is random
 library(spatstat)
 Xcoord=as.ppp(as.matrix(crime[,c("Longitude","Latitude")]),
               c(min(crime$Longitude),max(crime$Longitude),
                 min(crime$Latitude),max(crime$Latitude)))
+# 100 times
 Kfun <- envelope(Xcoord, fun= Kest, nsim= 100, verbose=F)
 plot(Kfun)
 
 
 
 # get census data on owners with 1 vehicle, population
-
 library(tidycensus)
 
 acs_indy <- get_acs(geography = "block group",
