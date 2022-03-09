@@ -2,6 +2,9 @@ library(tidyverse)
 library(tidytext)
 
 # word2vec example
+# decides whether the given pair would work together or not
+# cat sits -> positive sample
+# cat flies -> negative sample
 
 songs=read.csv("~/Dropbox/cs489/songdata.csv")
 songs$text=as.character(songs$text)
