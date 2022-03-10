@@ -33,7 +33,12 @@ glm_model = glm(Revenue..Millions. ~ Runtime..Minutes. + Rating + Votes + dwayne
                   data = data, family = "gaussian")
 coef(summary(glm_model))
 
+# Moana with Dwayne Johnson
 glm_prediction = predict(glm_model, data.frame(Runtime..Minutes. = 107, Rating = 7.7, Votes = 118151, dwayne = 1, action = 0, comedy = 1))
+# 106.3897
 glm_prediction
 
-
+# Moana without Dwayne Johnson
+glm_prediction_without_dwayne = predict(glm_model, data.frame(Runtime..Minutes. = 107, Rating = 7.7, Votes = 118151, dwayne = 0, action = 0, comedy = 1))
+# 43.03029
+glm_prediction_without_dwayne
