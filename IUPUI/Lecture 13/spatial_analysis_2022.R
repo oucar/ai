@@ -72,7 +72,6 @@ acs_indy %>% ggplot(aes(fill = B02001_001E)) +
   scale_fill_gradient(low = "white", high = "red")+theme_void()
 
 # join with crime data
-
 DT_sf = st_as_sf(crime, 
                  coords = c("Longitude", "Latitude"),
                  crs=st_crs(acs_indy))
