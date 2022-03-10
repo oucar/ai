@@ -1,0 +1,29 @@
+library(tidyverse)
+library(spatstat)
+library(ggmap)
+library(rstudioapi)
+
+data <- read_csv("./Potholes_Patched.csv")
+Xcoord = as.ppp(as.matrix(data[,c("LONGITUDE","LATITUDE")]),
+              c(min(data$LONGITUDE),max(data$LONGITUDE),
+                min(data$LATITUDE),max(data$LATITUDE)))
+# 100 times
+Kfun <- envelope(Xcoord, fun = Kest, nsim = 100, verbose = F)
+plot(Kfun)
+
+# has google key, registered google maps api
+# but for some reason google maps api doesn't work properly?
+has_google_key()
+pothole_map <- get_map("Indianapolis, IN")
+
+
+qmap("Chicago, IL", zoom = 15)
+
+p = ggmap(pothole_map)+stat_density2d(data=data,
+                                aes(x = LONGTITUDE, y = LATITUDE, 
+                                    fill = ..level..,alpha=..level..),
+                                bins = 20,h=.025,
+                                geom = "polygon")+
+  scale_fill_gradientn(colours=c("yellow","orange","red"))+
+  guides(fill="none",alpha="none")
+
