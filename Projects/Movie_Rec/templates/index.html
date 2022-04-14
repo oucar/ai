@@ -5,16 +5,77 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- JQUERY -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+
+
+    <style>
+        .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        }
+        /* IE 6 doesn't support max-height
+        * we use height instead, but this forces the menu to always be this tall
+        */
+        * html .ui-autocomplete {
+            height: 300px;
+        }
+    </style>
+
+    <script>
+        $( function() {
+          var availableTags = [
+            {% for item in titles%}
+            "{{item}}",
+            {%endfor%}
+          ];
+          $( "#tags" ).autocomplete({
+            source: availableTags
+          });
+        } );
+        </script>
+
+
+
+
 </head>
 <body>
 
     <h1>ML WEB APP</h1>
 
-    <ul>
-    {% for item in arr %}
-        <li>{{ item }}</li>
-    {% endfor %}
-    </ul>
+    <!-- Multiple values in the future -->
+    <!-- Docs:  https://jqueryui.com/autocomplete/#multiple -->
+
+    <div class="ui-widget">
+        <form action="#" method="POST">
+        <label for="tags">Tags: </label>
+        <input id="tags" name="title_selected">
+        <button>Submit</button>
+    </form>
+
+    {% block content %}
+    {% if movies %}
+        <p>MOVIE FOUND: {{movies}}</p>
+        <ul>
+            {% for item in arr %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        
+    {% else %}
+        <p>NO MOVIE!</p>
+    {% endif %}
+    {% endblock content %}
+
+
+    
 
     
 </body>
